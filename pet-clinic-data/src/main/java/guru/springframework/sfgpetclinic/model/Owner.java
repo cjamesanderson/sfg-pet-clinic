@@ -32,31 +32,35 @@ public class Owner extends Person{
     }
 
     public Owner(OwnerBuilder ownerBuilder) {
-        this.setId(ownerBuilder.getId());
-        this.setFirstName(ownerBuilder.getFirstName());
-        this.setLastName(ownerBuilder.getLastName());
+        if (ownerBuilder.id != null) this.setId(ownerBuilder.id);
+        this.setFirstName(ownerBuilder.firstName);
+        this.setLastName(ownerBuilder.lastName);
         this.address = ownerBuilder.address;
         this.city = ownerBuilder.city;
         this.telephone = ownerBuilder.telephone;
         this.pets = ownerBuilder.pets;
     }
 
-    public static class OwnerBuilder extends Person implements Builder<Owner> {
-        private String address = null;
-        private String city = null;
-        private String telephone = null;
+    public static class OwnerBuilder implements Builder<Owner> {
+
+        private Long id;
+        private String firstName;
+        private String lastName;
+        private String address;
+        private String city;
+        private String telephone;
         private Set<Pet> pets = new HashSet<>();
 
         public OwnerBuilder id(Long id) {
-            this.setId(id);
+            this.id = id;
             return this;
         }
         public OwnerBuilder firstName(String firstName) {
-            this.setFirstName(firstName);
+            this.firstName = firstName;
             return this;
         }
         public OwnerBuilder lastName(String lastName) {
-            this.setLastName(lastName);
+            this.lastName = lastName;
             return this;
         }
         public OwnerBuilder address(String address) {

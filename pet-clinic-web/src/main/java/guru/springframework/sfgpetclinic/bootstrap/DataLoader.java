@@ -55,33 +55,28 @@ public class DataLoader implements CommandLineRunner {
         dentistry.setDescription("dentistry");
         Specialty savedDentistrySpecialty = specialtyService.save(dentistry);
 
-        Owner owner1 = new Owner();
-        owner1.setFirstName("Michael");
-        owner1.setLastName("Weston");
-        owner1.setAddress("123 Brickerel");
-        owner1.setCity("Miami");
-        owner1.setTelephone("1231231234");
+        Owner owner1 = Owner.builder()
+                .firstName("Michael").lastName("Weston")
+                .address("123 Brickerel").city("Miami")
+                .telephone("1231231234").build();
 
-        Pet mikesPet = new Pet();
-        mikesPet.setPetType(savedDogPetType);
-        mikesPet.setOwner(owner1);
-        mikesPet.setBirthDate(LocalDate.now());
-        mikesPet.setName("Wolfie");
+        Pet mikesPet = Pet.builder()
+                .petType(savedDogPetType)
+                .owner(owner1)
+                .birthDate(LocalDate.now())
+                .name("Wolfie").build();
         owner1.getPets().add(mikesPet);
         ownerService.save(owner1);
 
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Fiona");
-        owner2.setLastName("Glenanne");
-        owner2.setAddress("123 Brickerel");
-        owner2.setCity("Miami");
-        owner2.setTelephone("1231231234");
+        Owner owner2 = Owner.builder()
+                .firstName("Fiona").lastName("Glenanne")
+                .address("123 Brickerel").city("Miami")
+                .telephone("1231231234").build();
 
-        Pet fionasCat = new Pet();
-        fionasCat.setName("Just Cat");
-        fionasCat.setOwner(owner2);
-        fionasCat.setBirthDate(LocalDate.now());
-        fionasCat.setPetType(savedCatPetType);
+        Pet fionasCat = Pet.builder().name("Just Cat")
+                .owner(owner2)
+                .birthDate(LocalDate.now())
+                .petType(savedCatPetType).build();
         owner2.getPets().add(fionasCat);
         ownerService.save(owner2);
 
