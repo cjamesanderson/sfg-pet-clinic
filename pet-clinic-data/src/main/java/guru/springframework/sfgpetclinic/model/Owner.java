@@ -17,6 +17,75 @@ public class Owner extends Person{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
+    public Owner() {
+
+    }
+
+    public Owner(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets) {
+        this.setId(id);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.address = address;
+        this.city = city;
+        this.telephone = telephone;
+        this.pets = pets;
+    }
+
+    public Owner(OwnerBuilder ownerBuilder) {
+        this.setId(ownerBuilder.getId());
+        this.setFirstName(ownerBuilder.getFirstName());
+        this.setLastName(ownerBuilder.getLastName());
+        this.address = ownerBuilder.address;
+        this.city = ownerBuilder.city;
+        this.telephone = ownerBuilder.telephone;
+        this.pets = ownerBuilder.pets;
+    }
+
+    public static class OwnerBuilder extends Person implements Builder<Owner> {
+        private String address = null;
+        private String city = null;
+        private String telephone = null;
+        private Set<Pet> pets = new HashSet<>();
+
+        public OwnerBuilder id(Long id) {
+            this.setId(id);
+            return this;
+        }
+        public OwnerBuilder firstName(String firstName) {
+            this.setFirstName(firstName);
+            return this;
+        }
+        public OwnerBuilder lastName(String lastName) {
+            this.setLastName(lastName);
+            return this;
+        }
+        public OwnerBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
+        public OwnerBuilder city(String city) {
+            this.city = city;
+            return this;
+        }
+        public OwnerBuilder telephone(String telephone) {
+            this.telephone = telephone;
+            return this;
+        }
+        public OwnerBuilder pets(Set<Pet> pets) {
+            this.pets = pets;
+            return this;
+        }
+
+        @Override
+        public Owner build() {
+            return new Owner(this);
+        }
+    }
+
+    public static OwnerBuilder builder() {
+        return new OwnerBuilder();
+    }
+
     public String getAddress() {
         return address;
     }
