@@ -1,18 +1,18 @@
 package guru.springframework.sfgpetclinic.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
 
-    @RequestMapping({"", "/", "index","index.html","index.htm"})
+    @GetMapping({"", "/", "index","index.html","index.htm"})
     public String index() {
 
         return "index";
     }
 
-    @RequestMapping("/oups")
+    @GetMapping("/oups")
     public String oupsHandler() {
         return "notimplemented";
     }
