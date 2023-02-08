@@ -110,4 +110,9 @@ public class Pet extends NamedEntity {
     public void setVisits(Set<Visit> visits) {
         this.visits = visits;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }
