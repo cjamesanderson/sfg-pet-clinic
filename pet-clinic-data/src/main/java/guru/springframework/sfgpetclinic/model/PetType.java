@@ -14,6 +14,11 @@ public class PetType extends NamedEntity {
         super(id, name);
     }
 
+    public PetType(PetTypeBuilder builder) {
+        if (builder.id != null) this.setId(builder.id);
+        this.setName(builder.name);
+    }
+
     public static class PetTypeBuilder implements Builder<PetType> {
 
         private Long id;
@@ -31,12 +36,16 @@ public class PetType extends NamedEntity {
 
         @Override
         public PetType build() {
-            return new PetType(id, name);
+            return new PetType(this);
         }
     }
 
     public static PetTypeBuilder builder() {
         return new PetTypeBuilder();
+    }
+
+    public String toString() {
+        return this.getName();
     }
 
 }
