@@ -32,7 +32,8 @@ public class Pet extends NamedEntity {
         this.setBirthDate(petBuilder.birthDate);
         this.setPetType(petBuilder.petType);
         this.setOwner(petBuilder.owner);
-        this.setVisits(petBuilder.visits);
+
+        if (visits == null || visits.size() > 0) this.setVisits(petBuilder.visits);
     }
 
     public static class PetBuilder implements Builder<Pet> {
