@@ -7,9 +7,12 @@ import guru.springframework.sfgpetclinic.services.VisitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
 
 @Controller
 public class VisitController {
@@ -25,8 +28,14 @@ public class VisitController {
     }
 
     @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
+    public void initDataBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+        dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException{
+                setValue(LocalDate.parse(text));
+            }
+        });
     }
 
     @ModelAttribute("visit")
@@ -46,8 +55,8 @@ public class VisitController {
         return VIEWS_CREATE_UPDATE_VISIT_FORM;
     }
 
-    @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
-    public String processNewVisitForm(@Validated Visit visit, BindingResult result) {
+    @PostMapping("/owners/{petId}/pets/{ownerId}/visits/new")
+    public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
         if (result.hasErrors()) {
             return VIEWS_CREATE_UPDATE_VISIT_FORM;
         } else {
